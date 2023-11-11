@@ -129,10 +129,6 @@ class AdminController extends Controller
     }
 }
 
-
-
-
-
 // dev notes:
 
 // to install Image Intervention, [composer require intervention/image] 
