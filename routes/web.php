@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/student.php';
+require __DIR__ . '/admin.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +22,6 @@ require __DIR__ . '/student.php';
 Route::get('/', function () {
     return view('welcome');
 });
-
-// test route only
-Route::get('/test', [GoogleAuthController::class, 'showTest'])
-    ->name('test');
 
 // google sso route
 Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])

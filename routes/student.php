@@ -10,7 +10,7 @@ Route::group(['prefix' => 'student'], function () {
     Route::get('/login', [StudentController::class, 'showLogin'])
         ->name('student_showlogin');
     Route::get('/signup-step1', [StudentController::class, 'showSignup1'])
-        ->name('signup_step1');
+        ->name('student_signup1');
     // for google single sign on
     Route::get('/auth/google/callback/', [GoogleAuthController::class, 'callback'])
         ->name('google_callback');
