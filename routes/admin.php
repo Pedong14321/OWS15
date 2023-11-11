@@ -20,4 +20,8 @@ Route::group(['prefix' => 'admin'], function () {
     // admin_signup1store
     Route::post('/signup1-store', [AdminController::class, 'storeSignup1'])
         ->name('admin_signup1store');
+
+    // admin_signup2store
+    Route::post('/signup2-store', [AdminController::class, 'storeSignup2'])
+        ->name('admin_signup2store');
 });

@@ -1,5 +1,6 @@
+@include('partials.__header') {{-- using partials "DRY - don't repeat yourself" --}}
 
-@include('partials.__header')
+<x-messages />
 
 <div class="min-h-screen min-w-full flex flex-col md:flex-row">
     {{-- left card --}}
@@ -36,7 +37,10 @@
         class="p-8 bg-white rounded-lg min-h-full m-5 mt-0 md:w-1/2 min-h-full flex flex-col sm:w-full md:mt-5  shadow-lg">
         <form action="{{ route('admin_signup1store') }}" method="POST" class=" flex flex-col m-0">
             @csrf
-            <h1 class="text-2xl font-bold text-gray-900">Create Admin Account</h1>
+            <div class="flex justify-between items-center font-bold">
+                <h1 class="text-2xl  text-gray-800">Create Admin Account</h1>
+                <h3 class="text-gray-700">Step 1</h3>
+            </div>
             <div class="flex mt-4 gap-4">
                 <span
                     class=" text-red-500 text-xs font-small py-0.5 rounded-full ">

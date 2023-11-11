@@ -15,6 +15,7 @@ class Admin extends Model
         'admin_lname',
         'admin_fname',
         'admin_mi',
+        'admin_image',
         'employee_id',
         'admin_contact',
         'email',

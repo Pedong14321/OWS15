@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('admin_lname', 20)->notNull();
             $table->string('admin_fname', 20)->notNull();
             $table->string('admin_mi', 3)->notNull();
+            $table->string('admin_image', 255)->nullable();
             $table->string('employee_id', 12)->nullable();
             $table->unsignedInteger('office_id')->nullable();
             $table->unsignedInteger('position_id')->nullable();
