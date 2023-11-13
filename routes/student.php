@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 
     // all student routes here
-Route::group(['prefix' => 'student'], function () {
+Route::group(['prefix' => 'student'], function () { // all routes here have /student/ prefix
+
     Route::get('/', [StudentController::class, 'showIndex'])
         ->name('student_home');
     Route::get('/login', [StudentController::class, 'showLogin'])

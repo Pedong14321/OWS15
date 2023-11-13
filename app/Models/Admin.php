@@ -4,12 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Admin extends Model
+class Admin extends Authenticatable // extending authenticable makes it process authentication like login, see config>auth.php
 {
     use HasFactory; //  adds the ability to generate timestamps for the model.
 
-    protected $primaryKey = 'admin_id';
+    protected $table = 'admins'; // specifies the name of the database table that the model maps to
+
+    protected $primaryKey = 'admin_id'; // specifies the primary key of the table
 
     protected $fillable = [ // allows you to set multiple fields on a model at once
         'admin_lname',

@@ -1,5 +1,7 @@
 <?php
 
+// I added code in providers
+
 return [
 
     /*
@@ -63,6 +65,7 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+            'model' => App\Models\Admin::class, // I added this to make the Admin model Authenticable
         ],
 
         // 'users' => [

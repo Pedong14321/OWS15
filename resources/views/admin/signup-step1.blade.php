@@ -1,6 +1,6 @@
 @include('partials.__header') {{-- using partials "DRY - don't repeat yourself" --}}
 
-<x-messages />
+<x-messages /> {{-- for our custom alert messages --}}
 
 <div class="min-h-screen min-w-full flex flex-col md:flex-row">
     {{-- left card --}}
