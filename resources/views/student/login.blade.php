@@ -1,5 +1,6 @@
 @include('partials.__header')
 
+<x-messages />
 <div class="min-h-screen min-w-full flex flex-col md:flex-row  ">
     <!--left-->
     <div class="bg-white ouryellowbg shadow-lg rounded-lg md:w-1/2 sm:w-full min-h-full m-5 md:mr-0  ">
