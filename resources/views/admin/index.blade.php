@@ -4,7 +4,6 @@
 
 {{-- right side section --}}
 <div class="md:ml-60">
-
     {{-- right side header --}}
     <div class="flex flex-row items-center px-4 py-2 mx-4 my-2 gap-2 flex justify-end ">
         <a href="">
@@ -20,10 +19,10 @@
     </div>
 
     {{-- main content --}}
-    <div class="p-4  m-4 shadow-lg bg-white border-gray-200 rounded-lg "
-        style="min-height: 90vh">
-        {{-- breadcrumbs --}}
-        <div class=" flex items-center py-2 mb-4 rounded ">
+    <div class="p-4 m-4 shadow-lg bg-white border-gray-200 rounded-lg " style="min-height: 90vh">
+        {{-- navigation container --}}
+        <div class="flex items-center  mb-4 rounded ">
+            {{-- breadcrumb nav container --}}
             <nav class="flex" aria-label="Breadcrumb">
                 <ol class="inline-flex items space-x-1 md:space-x-3">
                     <li aria-current="page" class="inline-flex items-center">
@@ -39,134 +38,16 @@
 
         {{-- 1st, 3 col --}}
         <div class="grid grid-cols-3 gap-4 mb-4">
-            <a href="">
-                {{-- {{ route('manage_admins') }} --}}
-                <div class="flex flex-col items-center justify-center h-24 rounded border"
-                    style="background: #14E06D">
+            <a href=" {{ route('admin_manage') }} ">
+                <div class="flex flex-col items-center justify-center h-24 rounded border">
                     <span class="material-symbols-rounded">manage_accounts</span>
                     <p class="text-sm">Manage Admins</p>
                 </div>
             </a>
-            <div class="flex items-center justify-center h-24 rounded bg-gray-50 ">
-                <p class="text-2xl text-gray-400 ">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 1v16M1 9h16" />
-                    </svg>
-                </p>
-            </div>
-            <div class="flex items-center justify-center h-24 rounded bg-gray-50 ">
-                <p class="text-2xl text-gray-400 ">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 1v16M1 9h16" />
-                    </svg>
-                </p>
-            </div>
         </div>
 
-        {{-- 2nd, 1 col --}}
-        <div class=" flex items-center justify-center h-48 mb-4 rounded bg-gray-50 ">
-            <p class="text-2xl text-gray-400 ">
-                <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 1v16M1 9h16" />
-                </svg>
-            </p>
-        </div>
-
-        {{-- 3rd, 2 col, 2 row --}}
-        <div class="grid grid-cols-2 gap-4 mb-4">
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 ">
-                <p class="text-2xl text-gray-400 ">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 1v16M1 9h16" />
-                    </svg>
-                </p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 ">
-                <p class="text-2xl text-gray-400 ">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 1v16M1 9h16" />
-                    </svg>
-                </p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 ">
-                <p class="text-2xl text-gray-400 ">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 1v16M1 9h16" />
-                    </svg>
-                </p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 ">
-                <p class="text-2xl text-gray-400 ">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 1v16M1 9h16" />
-                    </svg>
-                </p>
-            </div>
-        </div>
-
-        {{-- 4th, 3 col, 2 row --}}
-        <div class="grid grid-cols-3 gap-4 mb-4">
-            <div class="flex items-center justify-center h-24 rounded bg-gray-50 ">
-                <p class="text-2xl text-gray-400 ">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 1v16M1 9h16" />
-                    </svg>
-                </p>
-            </div>
-            <div class="flex items-center justify-center h-24 rounded bg-gray-50 ">
-                <p class="text-2xl text-gray-400 ">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 1v16M1 9h16" />
-                    </svg>
-                </p>
-            </div>
-            <div class="flex items-center justify-center h-24 rounded bg-gray-50 ">
-                <p class="text-2xl text-gray-400 ">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 1v16M1 9h16" />
-                    </svg>
-                </p>
-            </div>
-            <div class="flex items-center justify-center h-24 rounded bg-gray-50 ">
-                <p class="text-2xl text-gray-400 ">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 1v16M1 9h16" />
-                    </svg>
-                </p>
-            </div>
-            <div class="flex items-center justify-center h-24 rounded bg-gray-50 ">
-                <p class="text-2xl text-gray-400 ">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 1v16M1 9h16" />
-                    </svg>
-                </p>
-            </div>
-        </div>
     </div>
+</div>
 </div>
 
 @include('partials.__footer')

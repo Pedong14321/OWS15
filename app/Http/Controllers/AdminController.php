@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Admin;
+use App\Models\Office;
+use App\Models\AdminType;
 use Intervention\Image\Facades\Image; // see notes below
 
 class AdminController extends Controller
@@ -39,13 +41,18 @@ class AdminController extends Controller
     {
         return view('admin.office.index');
     }
+    public function showAdminManage() {
+        $admins = Admin::all();
+        $offices = Office::all();
+        $admin_types = AdminType::all();
+        return view('admin.manage', compact('admins', 'offices', 'admin_types'));
+    }
 
     //-------------------------functions for functionality-------------------------
 
     // storing signup step 1
     public function storeSignup1(Request $request)
     {
-
         $validated = $request->validate([
             "admin_lname" => ['required', 'min:2', 'alpha_spaces'],
             "admin_fname" => ['required', 'min:2', 'alpha_spaces'],
@@ -81,6 +88,8 @@ class AdminController extends Controller
         ]);
 
         $validated['admintype_id'] = 1; // assigning Super Admin type
+
+        $validated['office_id'] = 1; // assigning office to OSAS
 
         $admin = Admin::find($adminId); // Find the admin by ID and update the attributes
 
