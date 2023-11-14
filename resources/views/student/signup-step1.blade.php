@@ -28,7 +28,7 @@
     </div>
     <!--right-->
     <div
-        class="shadow-lg p-8 bg-white rounded-lg min-h-full m-5 mt-0 md:w-1/2 min-h-full flex flex-col sm:w-full md:mt-5">
+        class="shadow-lg p-8 bg-white rounded-lg min-h-full m-5 mt-0 md:w-1/2 flex flex-col sm:w-full md:mt-5">
 
         <h1 class="text-2xl font-bold text-gray-900">Student Sign-up</h1>
         <div class="gap-4 my-6 mt-12 flex justify-center align-middle flex-wrap ">
