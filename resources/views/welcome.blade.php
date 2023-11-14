@@ -31,7 +31,7 @@
             </div>
         </div>
     <!--right-->
-        <div class="p-8 bg-white rounded-lg min-h-full m-5 mt-0 md:w-1/2 min-h-full flex flex-col sm:w-full md:mt-5">
+        <div class="p-8 bg-white rounded-lg min-h-full m-5 mt-0 md:w-1/2 flex flex-col sm:w-full md:mt-5">
             <div class="flex flex-col h-auto justify-center items-center">
                 <img src="images/student/osas-logo.png" alt="OSAS Logo" style="height: 70%;">
                 <p style="font-weight: 800; letter-spacing: 5px; font-size: 48px;">OSAS WEB SERVICES</p>

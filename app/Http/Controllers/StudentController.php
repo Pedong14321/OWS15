@@ -17,6 +17,11 @@ class StudentController extends Controller
         return view('student.login');
     }
 
+    public function accountabilities()
+    {
+        return view('student.accountabilities');
+    }
+
     public function showSignup1()
     {
         // Retrieve students with the specific google_id
