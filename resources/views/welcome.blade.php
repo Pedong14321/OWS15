@@ -31,7 +31,7 @@
             </div>
         </div>
     <!--right-->
-        <div class="p-8 bg-white rounded-lg min-h-full m-5 mt-0 md:w-1/2 min-h-full flex flex-col sm:w-full md:mt-5">
+        <div class="p-8 bg-white rounded-lg min-h-full m-5 mt-0 md:w-1/2 flex flex-col sm:w-full md:mt-5">
             <div class="flex flex-col h-auto justify-center items-center">
                 <img src="images/student/osas-logo.png" alt="OSAS Logo" style="height: 70%;">
                 <p style="font-weight: 800; letter-spacing: 5px; font-size: 48px;">OSAS WEB SERVICES</p>
@@ -40,7 +40,7 @@
             <br>
             <div class="mt-6 flex flex-col h-auto justify-center items-center">
                 <a href="{{ route('student_showlogin') }}">
-                    <button class="block w-auto px-14 py-2 rounded-full text-center transition duration-300" style="background-color: #fec24a; color: black; box-shadow: #252525; font-size: 20px; font-weight: 700; letter-spacing: 1px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5)">GET STARTED</button>
+                    <button class="block w-auto px-14 py-2 rounded-full text-center transition duration-300" style="background-color: #fec24a; color: black; font-size: 20px; font-weight: 700; letter-spacing: 1px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5)">GET STARTED</button>
                 </a>
             </div>
         </div>
