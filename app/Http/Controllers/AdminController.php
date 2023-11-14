@@ -47,6 +47,26 @@ class AdminController extends Controller
         $admin_types = AdminType::all();
         return view('admin.manage', compact('admins', 'offices', 'admin_types'));
     }
+    public function showProfile($admin_id) {
+        // Fetch the admin's data from the database based on the $adminId
+        $admin = Admin::find($admin_id);
+
+        // Check if the admin exists
+        if (!$admin) { // You can handle what to do if the admin is not found, such as displaying an error message or redirecting to a 404 page.
+            return view('errors.admin_not_found');  // For example, you can return a view with an error message:
+        }
+
+        // Pass the admin data to the view and display it
+        return view('admin.profile', ['admin' => $admin]);
+    }
+    public function showCreateAdmin() {
+        $offices = Office::all();
+        $admin_types = AdminType::all();
+        return view('admin.create', compact('offices', 'admin_types'));
+    }
+    public function showQRscanner() {
+        return view('admin.student_event.qr-scanner');
+    }
 
     //-------------------------functions for functionality-------------------------
 
@@ -140,6 +160,60 @@ class AdminController extends Controller
         return redirect(route('admin_login'))->with('message', 'Successfully created Super Admin account');
     }
 
+    // for creating new admin
+    public function storeCreate(Request $request) {
+        $validated = $request->validate([
+            "admin_lname" => ['required', 'min:2', 'alpha_spaces'],
+            "admin_fname" => ['required', 'min:2', 'alpha_spaces'],
+            "admin_mi" => ['required', 'regex:/^(N\/A|[A-Za-z])$/'], //require to be clearer, user must put N/A if they have no mi
+            "employee_id" => ['required', 'max:6'],
+            "office_id" => ['required'],
+            "admintype_id" => ['required'],
+            "admin_contact" => ['nullable', 'numeric', 'digits_between:10,15'],
+            "email" => ['required', 'email', Rule::unique('admins', 'email')],
+        ]);
+
+        // checking if there is a file
+        if ($request->hasFile('admin_image')) {
+            $request->validate([ // validation for right format and size
+                "admin_image" => 'mimes:jpeg,png,bmp,tiff | max:4096'
+            ]);
+
+            // to avoid duplication of image
+            $filenameWithExtension = $request->file("admin_image"); // gets the filename+extension
+            $filename = pathinfo($filenameWithExtension, PATHINFO_FILENAME); // extracts filename only without extension
+
+            $extension = $request->file("admin_image") // gets the extension of the file 
+                ->getClientOriginalExtension();
+
+            $filenameToStore = $filename . '_' . time() . '.' . $extension; // filename_timestamp.extention
+
+            $smallThumbnail = 'small_' . $filename . '_' . time() . '.' . $extension; // small_filename_timestamp.extention
+
+            $request->file('admin_image')->storeAs( // stores the image to ...
+                'public/admin',
+                $filenameToStore
+            );
+
+            $request->file('admin_image')->storeAs( // stores the small image to ...
+                'public/admin/thumbnail',
+                $smallThumbnail
+            );
+
+            $thumbnail = 'storage/admin/thumbnail/' . $smallThumbnail; // assigns the path to the thumbnail image to this variable
+            // example content of $thumbnail is /storage/admin/thumbnail/small_my-image_1670915990.png
+
+            // dd($thumbnail); // <- for debugging only
+            $this->createThumbnail($thumbnail, 150, 150);
+
+            $validated['admin_image'] = $filenameToStore; // stores the new filename to db
+        }
+
+        Admin::create($validated);
+        return redirect( route('admin_manage') )->with('message', 'Successfully create new admin account!');
+        // return redirect('/admin/login')->with('message',
+    }
+
     // creating a small thumbnail
     public function createThumbnail($path, $width, $height) // $path is the path of the thumbnail
     { //  creates a thumbnail image 
@@ -178,6 +252,7 @@ class AdminController extends Controller
         $request->session()->regenerateToken();
         return redirect( route('admin_login') )->with('message', 'Logout successful');
     }
+
 }
 
 // dev notes:

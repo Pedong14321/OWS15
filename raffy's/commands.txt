@@ -1,5 +1,13 @@
 <?php
 
+// to fix server error 500
+[
+mv .env.example .env 
+php artisan cache:clear 
+composer dump-autoload 
+php artisan key:generate
+]
+
 // I love this green for our pallete
 #14E06D
 

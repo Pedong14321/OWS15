@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Student extends Model implements Authenticatable
+class Student extends Authenticatable // extending authenticable makes it process authentication like login, see config>auth.php
 {
-    use \Illuminate\Auth\Authenticatable; // for logging in
+    
     use HasFactory;
 
     protected $table = 'students';
@@ -26,5 +26,11 @@ class Student extends Model implements Authenticatable
 
     protected $hidden = [
         'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
     ];
 }

@@ -66,6 +66,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
             'model' => App\Models\Admin::class, // I added this to make the Admin model Authenticable
+            'model' => App\Models\Student::class, // I added
         ],
 
         // 'users' => [
