@@ -22,6 +22,11 @@ class StudentController extends Controller
         return view('student.accountabilities');
     }
 
+    public function accountabilitiesNextPage()
+    {
+        return view('student.accountabilities-next-page');
+    }
+
     public function showSignup1()
     {
         // Retrieve students with the specific google_id

@@ -117,10 +117,10 @@
             </div>
             <br>
             <br>
-            <!--Accountabilities-->
-            <div id="scholarship-container" class="grid grid-cols-2 gap-4 mb-4 pl-11 pr-11">
+            <!--Accountabilities more details-->
+            <div id="scholarship-container" class="grid grid-cols-1 gap-4 mb-4 pl-11 pr-11">
                 {{--Clinic Office--}}
-                <div class="containers grid grid-cols-3 gap-1 pl-7 items-center justify-center pt-1 rounded-lg" style="grid-template-columns: .4fr 2fr .5fr; height: 80px;">
+                <div class="containers grid grid-cols-3 gap-1 pl-7 items-center justify-center pt-1 rounded-lg" style="grid-template-columns: .2fr 2fr .5fr; height: 80px;">
                     <div>
                         <img src="/images/student/osas-logo.png" alt="" style="height: 70px; width: 70px;">
                     </div>
@@ -132,64 +132,21 @@
                             OFFICE: Clinic
                         </p>
                     </div>
-                    <div class="flex flex-col items-center justify-center">
-                        <img width="48" height="45" src="https://img.icons8.com/flat-round/64/circled-chevron-right.png" alt="circled-chevron-right"/>
-                    </div>
-                    <br>
                 </div>
-                {{--Clinic Office--}}
-                <div class="containers grid grid-cols-3 gap-1 pl-7 items-center justify-center pt-1 rounded-lg" style="grid-template-columns: .4fr 2fr .5fr; height: 80px;">
-                    <div>
-                        <img src="/images/student/osas-logo.png" alt="" style="height: 70px; width: 70px;">
-                    </div>
-                    <div>
-                        <p style="font-weight: bolder; font-size: x-large;">
-                            <strong>Lacking of Documents</strong>
-                        </p>
+            </div>
+            <div id="scholarship-container" class="grid grid-cols-1 gap-4 mb-4 pl-11 pr-11">
+                {{--Date Issued--}}
+                <div class="containers grid grid-cols-2 gap-80 pl-7 items-center justify-center pt-1 rounded-lg" style="height: 40px;">
+                    <div class="items-center justify-center">
                         <p style="font-size: large; color: gray;">
-                            OFFICE: Registrar
+                            <span class="material-symbols-outlined items-center justify-center" style="font-size: 35px;">calendar_clock</span>&nbsp;&nbsp;&nbsp;ISSUED: September 13, 2023
                         </p>
                     </div>
-                    <div class="flex flex-col items-center justify-center">
-                        <img width="48" height="45" src="https://img.icons8.com/flat-round/64/circled-chevron-right.png" alt="circled-chevron-right"/>
-                    </div>
-                    <br>
-                </div>
-                {{--Library Office--}}
-                <div class="containers grid grid-cols-3 gap-1 pl-7 items-center justify-center pt-1 rounded-lg" style="grid-template-columns: .4fr 2fr .5fr; height: 80px;">
                     <div>
-                        <img src="/images/student/osas-logo.png" alt="" style="height: 70px; width: 70px;">
-                    </div>
-                    <div>
-                        <p style="font-weight: bolder; font-size: x-large;">
-                            <strong>Unreturned Book</strong>
-                        </p>
                         <p style="font-size: large; color: gray;">
-                            OFFICE: Library
+                            <span class="material-symbols-outlined items-center justify-center" style="font-size: 35px;">warning</span>DUE: November 20, 2023
                         </p>
                     </div>
-                    <div class="flex flex-col items-center justify-center">
-                        <img width="48" height="45" src="https://img.icons8.com/flat-round/64/circled-chevron-right.png" alt="circled-chevron-right"/>
-                    </div>
-                    <br>
-                </div>
-                {{--Office ... --}}
-                <div class="containers grid grid-cols-3 gap-1 pl-7 items-center justify-center pt-1 rounded-lg" style="grid-template-columns: .4fr 2fr .5fr; height: 80px;">
-                    <div>
-                        <img src="/images/student/osas-logo.png" alt="" style="height: 70px; width: 70px;">
-                    </div>
-                    <div>
-                        <p style="font-weight: bolder; font-size: x-large;">
-                            <strong>Lacking of -----</strong>
-                        </p>
-                        <p style="font-size: large; color: gray;">
-                            OFFICE: ------
-                        </p>
-                    </div>
-                    <div class="flex flex-col items-center justify-center">
-                        <img width="48" height="45" src="https://img.icons8.com/flat-round/64/circled-chevron-right.png" alt="circled-chevron-right"/>
-                    </div>
-                    <br>
                 </div>
             </div>
         </div>   
