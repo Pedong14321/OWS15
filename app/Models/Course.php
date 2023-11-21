@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Office extends Model
+class Course extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'office_id';
+    protected $primaryKey = 'course_id';
 
     protected $fillable = [
-        'office_name',
-        'office_desc',
+        'course_name',
     ];
+
 }

@@ -12,18 +12,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('offices', function (Blueprint $table) {
-            $table->id('office_id');
-            $table->string('office_name', 50);
-            $table->string('office_desc', 100);
+        Schema::create('qr_codes', function (Blueprint $table) {
+            $table->id('qrcode_id');
+            $table->string('qrcode_filename', 100);
+            $table->string('student_osasid');
             $table->timestamps();
         });
 
         // Offices initial data
-        DB::table('offices')->insert([
-            'office_id' => 1,
-            'office_name' => 'OSAS',
-            'office_desc' => 'This is a sample office desciption',
+        DB::table('qr_codes')->insert([
+            'qrcode_id' => 1,
+            'qrcode_filename' => 'sample',
+            'student_osasid' => '2',
         ]);
     }
 
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('offices');
+        Schema::dropIfExists('qr_codes');
     }
 };

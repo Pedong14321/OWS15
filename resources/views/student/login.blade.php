@@ -11,7 +11,7 @@
             </div>
             <div class="hidden md:block absolute inset-0 flex items-center justify-center">
                 <!-- Image at the very center -->
-                <img src="/images/student/login_image.png" alt="" class="mt-12 mx-auto w-80 ">
+                <img src="/images/student/logfsdfin_image.png" alt="Image Here" class="mt-12 mx-auto w-80 ">
                 {{-- public\images\student\login_image.png --}}
             </div>
             <div class="flex justify-center mt-auto">
@@ -63,4 +63,6 @@
         </div>
     </div>
 </div>
+
+
 @include('partials.__footer')

@@ -12,18 +12,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('offices', function (Blueprint $table) {
-            $table->id('office_id');
-            $table->string('office_name', 50);
-            $table->string('office_desc', 100);
+        Schema::create('courses', function (Blueprint $table) {
+            $table->id('course_id');
+            $table->string('course_name', 255);
             $table->timestamps();
         });
 
         // Offices initial data
-        DB::table('offices')->insert([
-            'office_id' => 1,
-            'office_name' => 'OSAS',
-            'office_desc' => 'This is a sample office desciption',
+        DB::table('courses')->insert([
+            'course_id' => 1,
+            'course_name' => 'Bachelor of Science in Information Technology',
         ]);
     }
 
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('offices');
+        Schema::dropIfExists('courses');
     }
 };
