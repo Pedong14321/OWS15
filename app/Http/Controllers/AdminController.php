@@ -365,8 +365,8 @@ class AdminController extends Controller
             'scholarshipid' => $scholarid,
        ]);
 
-    return view('admin.scholarship.index');
-    //    return view('admin.scholarships');
+     return redirect()->route('admin.scholarships');
+    //    return view('admin.scholarship.index');
     }
 }
 
