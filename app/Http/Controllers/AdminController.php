@@ -331,6 +331,43 @@ class AdminController extends Controller
 
         return view('admin.scholarship.index', compact('cnter', 'id', 'name', 'email', 'contact', 'desc', 'process', 'sid'));
     }
+
+    public function savescholar(Request $rq){
+        $name = $rq->scholarshipName;
+        $type = $rq->type;
+        $desc = $rq->scholarshipDescription;
+        $process = $rq->scholarshipApplicationProcess;
+        $email = $rq->scholarshipEmail;
+        $contact = $rq->contact;
+
+        // dd($contact);
+
+        $n = 8;
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+     
+        for ($i = 0; $i < $n; $i++) {
+            $index = rand(0, strlen($characters) - 1);
+            $randomString .= $characters[$index];
+        }
+
+
+        $scholarid =  date("Y")."-".$randomString;
+
+
+        Scholarship::create([
+            'name' => $name,
+            'email' => $email,
+            'type' => $type,
+            'desc' => $desc,
+            'process' => $process,
+            'contact' => $contact,
+            'scholarshipid' => $scholarid,
+       ]);
+
+    return redirect()->route('admin.scholarship.index');
+    //    return view('admin.scholarships');
+    }
 }
 
 
