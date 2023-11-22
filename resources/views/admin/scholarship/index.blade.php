@@ -356,7 +356,8 @@
 
             {{--scholarships container--}}
             <div id="scholarship-container" class="grid grid-cols-2 gap-4 mb-4 pl-11">
-                @for($x = 0; $x < $cnter; $x++) {{--TES Scholarship Program--}} <div class="containers flex flex-col items-start justify-start h-auto p-4 rounded-lg">
+                @for($x = 0; $x < $cnter; $x++) {{--TES Scholarship Program--}}
+                 <div class="containers flex flex-col items-start justify-start h-auto p-4 rounded-lg">
                     {{--delete icon for scholarship deletion--}}
                     <div class="flex items-end justify-end w-full">
                         <button onclick="deleteScholarship(this)">
@@ -397,9 +398,9 @@
                             Details
                         </button>
                     </div>
-            </div>
+                </div>
+                @endfor
 
-            @endfor
 
         </div>
 
