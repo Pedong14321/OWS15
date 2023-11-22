@@ -355,7 +355,7 @@ class AdminController extends Controller
         $scholarid =  date("Y")."-".$randomString;
 
 
-        Scholarship::create([
+        scholarship::create([
             'name' => $name,
             'email' => $email,
             'type' => $type,
@@ -365,7 +365,7 @@ class AdminController extends Controller
             'scholarshipid' => $scholarid,
        ]);
 
-    return redirect()->route('admin.scholarship.index');
+    return view('admin.scholarship.index');
     //    return view('admin.scholarships');
     }
 }
