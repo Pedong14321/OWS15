@@ -387,7 +387,7 @@
                     <br>
                     <div class="tablet-stack flex flex-col md:flex-row md:space-x-2 items-end justify-end w-full mt-2.5 gap-2">
                         <form action="scholarshipsgrantees" method="GET">
-                            <a href="{{ route('admin.scholarshipsgrantees') }}">
+                            <a href="{{ ('') }}">
                                 <button class="btn-del text-base sm:text-xl text-white px-4 py-1.5 focus:ring-4 focus:outline-none rounded-full w-full md:w-auto text-center md:text-left">
                                     Grantees
                                 </button>
@@ -462,7 +462,7 @@
             <hr style="border: 1px solid black;">
             <div id="errorDiv" class="text-red-500"></div>
             <br>
-            <form method="POST" action="savescho">
+            <form method="POST" action="{{ route('admin_savescholar') }} ">
                 @csrf
                 {{--row 1--}}
                 <div class="grid grid-cols-2 gap-4 mb-4" style="grid-template-columns: 3fr 1fr;">
