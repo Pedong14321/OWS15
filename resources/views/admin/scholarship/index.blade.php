@@ -356,8 +356,7 @@
 
             {{--scholarships container--}}
             <div id="scholarship-container" class="grid grid-cols-2 gap-4 mb-4 pl-11">
-                @for($x = 0; $x < $cnter; $x++) {{--TES Scholarship Program--}}
-                 <div class="containers flex flex-col items-start justify-start h-auto p-4 rounded-lg">
+                @for($x = 0; $x < $cnter; $x++) {{--TES Scholarship Program--}} <div class="containers flex flex-col items-start justify-start h-auto p-4 rounded-lg">
                     {{--delete icon for scholarship deletion--}}
                     <div class="flex items-end justify-end w-full">
                         <button onclick="deleteScholarship(this)">
@@ -398,8 +397,8 @@
                             Details
                         </button>
                     </div>
-                </div>
-                @endfor
+            </div>
+            @endfor
 
 
         </div>
@@ -463,7 +462,7 @@
             <hr style="border: 1px solid black;">
             <div id="errorDiv" class="text-red-500"></div>
             <br>
-            <form method="POST" action="{{ route('admin_savescholar') }} ">
+            <form method="POST" action="{{ route('admin_savescholar_index') }} ">
                 @csrf
                 {{--row 1--}}
                 <div class="grid grid-cols-2 gap-4 mb-4" style="grid-template-columns: 3fr 1fr;">
