@@ -39,6 +39,7 @@ Route::group(['prefix' => 'admin'], function () { // all routes here have /admin
         Route::post('/savescholar', [AdminController::class,'savescholar'])
             ->name('admin_savescholar');
 
+
         //-------------------------for functionality routing-------------------------
         // creating new admin
         Route::post('/create-store', [AdminController::class, 'storeCreate'])
