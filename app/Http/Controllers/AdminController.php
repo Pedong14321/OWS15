@@ -11,6 +11,7 @@ use App\Models\AdminType;
 use App\Models\Student;
 use App\Models\StudentEvent;
 use App\Models\Scholarship;
+use App\Models\scholargrant;
 use Intervention\Image\Facades\Image; // see notes below
 use Illuminate\Support\Facades\Log;
 use Illuminate\Session\TokenMismatchException;
@@ -368,6 +369,44 @@ class AdminController extends Controller
      return redirect()->route('admin.scholarships');
     //    return view('admin.scholarship.index');
     }
+    public function delete (Request $rq){
+        $id = $rq->schoid;
+        Scholarship::where('scholarshipid', '=', $id)->delete();
+       
+        return redirect()->route('admin.scholarships');
+    }
+
+    public function Grantees (request $rq){
+        $cnter = scholargrant::query()->count();
+        $id = scholargrant :: query()->pluck('id');
+        $lname = scholargrant::query()->pluck('Lname');
+        $fname = scholargrant::query()->pluck('Fname');
+        $Mname = scholargrant::query()->pluck('Mname');
+        $program = scholargrant::query()->pluck('program');
+        $type = scholargrant::query()->pluck('type');
+        $Yrlevel = scholargrant::query()->pluck('Yrlevel');
+        $studentEmail= scholargrant::query()->pluck('studentemail');
+        $studentID = scholargrant::query()->pluck('studentId');
+        $contact = scholargrant::query()->pluck('contact');
+        $status = scholargrant::query()->pluck('status');
+      
+            
+    //     scholargrant::create([
+    //         'Last_name'=>$lastname,
+    //         'First_name'=>$firstName,
+    //         'Middle_name'=>$middleName,
+    //         'Program'=>$program,
+    //         'type'=>$paymentType,
+    //         'Year_Level'=>$Yrlevel,
+    //         'Student_email'=>$studentEmail,
+    //         'Student_id'=>$studentID,
+    //         'Contact'=>$contact,
+    //    ]);
+
+
+        return view ('admin.scholarship.grantees', compact('id', 'cnter', 'lname', 'fname', 'Mname', 'program', 'type', 'Yrlevel', 'studentEmail', 'studentID', 'contact','status'));
+    }
+    
 }
 
 
