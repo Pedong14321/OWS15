@@ -120,7 +120,7 @@
         <p style="font-weight: bolder; font-size: x-large;">${scholarshipName.value}</p>
         <br>
         <div class="tablet-stack flex flex-col md:flex-row md:space-x-2 items-end justify-end w-full mt-2.5 gap-2">
-            // <a href="{{''}}">
+            // <a href="{{route('admin.grantees')}}">
                 <button class="btn-del text-base sm:text-xl text-white px-4 py-1.5 focus:ring-4 focus:outline-none rounded-full w-full md:w-auto text-center md:text-left">
                     Grantees
                 </button>
@@ -340,8 +340,6 @@
                             });
                         });
                     </script>
-
-
                 </div>
                 <div class="relative h-10 w-12 rounded-lg pl-11 mb-10 items-start">
                     <button type="button" id="addBtn" onclick="createScholarship()" class="absolute top-0 right-0 p-2.5 text-sm font-medium h-full text-white rounded-lg border focus:ring-4 focus:outline-none" style="border-color: #630606; background-color: #630606">
@@ -352,6 +350,8 @@
                     </button>
                 </div>
             </div>
+
+
 
 
             {{--scholarships container--}}
@@ -386,8 +386,8 @@
 
                     <br>
                     <div class="tablet-stack flex flex-col md:flex-row md:space-x-2 items-end justify-end w-full mt-2.5 gap-2">
-                        <form action="scholarshipsgrantees" method="GET">
-                            <a href="{{ ('') }}">
+                        <form action="{{ route('admin.grantees') }}" method="GET">
+                            <a href="{{ route('admin.grantees') }}">
                                 <button class="btn-del text-base sm:text-xl text-white px-4 py-1.5 focus:ring-4 focus:outline-none rounded-full w-full md:w-auto text-center md:text-left">
                                     Grantees
                                 </button>
@@ -428,10 +428,9 @@
                             @csrf
 
                             <input type="text" name="schoid" class="border p-2 mb-4 w-full items-center text-center rounded-lg" placeholder="Enter your Scholarship ID to confirm">
-
                             <div class="flex justify-end space-x-2">
-                                <button onclick="cancelDelete()" class="btn-del p-1.5 rounded-2xl w-1/2">Cancel</button>
-                                <button id="deleteButton" type="submit" class="btn p-1.5 rounded-2xl w-1/2" style="background-color: #630606; color: white">
+                                <button type="reset" onclick="cancelDelete()" class="btn-del p-1.5 rounded-2xl w-1/2">Cancel</button>
+                                <button name="deleteButton" type="submit" class="btn p-1.5 rounded-2xl w-1/2" style="background-color: #630606; color: white">
                                     Delete
                                 </button>
                         </form>
