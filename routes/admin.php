@@ -39,7 +39,7 @@ Route::group(['prefix' => 'admin'], function () { // all routes here have /admin
         // showcreateScholarship
         Route::post('/savescholar', [AdminController::class,'savescholar'])
             ->name('admin_savescholar_index');
-        Route::post('/admin/delete', [AdminController::class,'delete'])
+        Route::post('/delete', [AdminController::class,'delete'])
         ->name('admin.delete');
         Route::get('/admin/grantees', [AdminController::class,'Grantees'])->name('admin.grantees');
         Route::post('/admin/savesgrant', [AdminController::class,'savesgrant'])->name('admin.savesgrant');
