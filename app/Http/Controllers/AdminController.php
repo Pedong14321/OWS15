@@ -333,7 +333,8 @@ class AdminController extends Controller
         return view('admin.scholarship.index', compact('cnter', 'id', 'name', 'email', 'contact', 'desc', 'process', 'sid'));
     }
 
-    public function savescholar(Request $rq){
+    public function savescholar(Request $rq)
+    {
         $name = $rq->scholarshipName;
         $type = $rq->type;
         $desc = $rq->scholarshipDescription;
@@ -346,14 +347,14 @@ class AdminController extends Controller
         $n = 8;
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randomString = '';
-     
+
         for ($i = 0; $i < $n; $i++) {
             $index = rand(0, strlen($characters) - 1);
             $randomString .= $characters[$index];
         }
 
 
-        $scholarid =  date("Y")."-".$randomString;
+        $scholarid =  date("Y") . "-" . $randomString;
 
 
         scholarship::create([
@@ -364,49 +365,83 @@ class AdminController extends Controller
             'process' => $process,
             'contact' => $contact,
             'scholarshipid' => $scholarid,
-       ]);
+        ]);
 
-     return redirect()->route('admin.scholarships');
-    //    return view('admin.scholarship.index');
+        return redirect()->route('admin.scholarships');
+        //    return view('admin.scholarship.index');
     }
-    public function delete (Request $rq){
+    public function delete(Request $rq)
+    {
         $id = $rq->schoid;
         Scholarship::where('scholarshipid', '=', $id)->delete();
-       
+
         return redirect()->route('admin.scholarships');
     }
 
-    public function Grantees (request $rq){
+    public function Grantees(request $rq)
+    {
         $cnter = scholargrant::query()->count();
-        $id = scholargrant :: query()->pluck('id');
+        $id = scholargrant::query()->pluck('id');
         $lname = scholargrant::query()->pluck('Lname');
         $fname = scholargrant::query()->pluck('Fname');
         $Mname = scholargrant::query()->pluck('Mname');
         $program = scholargrant::query()->pluck('program');
         $type = scholargrant::query()->pluck('type');
         $Yrlevel = scholargrant::query()->pluck('Yrlevel');
-        $studentEmail= scholargrant::query()->pluck('studentemail');
+        $studentEmail = scholargrant::query()->pluck('studentemail');
         $studentID = scholargrant::query()->pluck('studentId');
         $contact = scholargrant::query()->pluck('contact');
         $status = scholargrant::query()->pluck('status');
-      
-            
-    //     scholargrant::create([
-    //         'Last_name'=>$lastname,
-    //         'First_name'=>$firstName,
-    //         'Middle_name'=>$middleName,
-    //         'Program'=>$program,
-    //         'type'=>$paymentType,
-    //         'Year_Level'=>$Yrlevel,
-    //         'Student_email'=>$studentEmail,
-    //         'Student_id'=>$studentID,
-    //         'Contact'=>$contact,
-    //    ]);
 
 
-        return view ('admin.scholarship.grantees', compact('id', 'cnter', 'lname', 'fname', 'Mname', 'program', 'type', 'Yrlevel', 'studentEmail', 'studentID', 'contact','status'));
+        //     scholargrant::create([
+        //         'Last_name'=>$lastname,
+        //         'First_name'=>$firstName,
+        //         'Middle_name'=>$middleName,
+        //         'Program'=>$program,
+        //         'type'=>$paymentType,
+        //         'Year_Level'=>$Yrlevel,
+        //         'Student_email'=>$studentEmail,
+        //         'Student_id'=>$studentID,
+        //         'Contact'=>$contact,
+        //    ]);
+
+
+        return view('admin.scholarship.grantees', compact('id', 'cnter', 'lname', 'fname', 'Mname', 'program', 'type', 'Yrlevel', 'studentEmail', 'studentID', 'contact', 'status'));
     }
-    
+
+    public function savesgrant(Request $rq)
+    {
+        $lastname = $rq->lastName;
+        $firstName = $rq->firstName;
+        $middleName = $rq->middleName;
+        $program = $rq->program;
+        $paymentType = $rq->paymentType;
+        $Yrlevel = $rq->Yrlevel;
+        $studentEmail = $rq->studentEmail;
+        $studentID = $rq->studentID;
+        $status = $rq->status;
+        $contact = $rq->contact;
+
+
+
+        scholargrant::create([
+            'Lname' => $lastname,
+            'Fname' => $firstName,
+            'Mname' => $middleName,
+            'program' => $program,
+            'type' => $paymentType,
+            'Yrlevel' => $Yrlevel,
+            'studentemail' => $studentEmail,
+            'studentId' => $studentID,
+            'contact' => $contact,
+            'status' => $status,
+
+
+        ]);
+
+        return redirect()->route('admin.grantees');
+    }
 }
 
 
