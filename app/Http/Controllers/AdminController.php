@@ -459,17 +459,49 @@ class AdminController extends Controller
 
 
         // scholargrant::where('id', '=', $id)->update([
-        //     'Lname'=>$lastname,
-        //     'Fname'=>$firstName,
-        //     'Mname'=>$middleName,
-        //     'program'=>$program,
-        //     'type'=>$paymentType,
-        //     'Yrlevel'=>$Yrlevel,
-        //     'studentemail'=>$studentEmail,
-        //     'studentId'=>$studentID,
-        //     'contact'=>$contact,
+            // 'Lname'=>$lastname,
+            // 'Fname'=>$firstName,
+            // 'Mname'=>$middleName,
+            // 'program'=>$program,
+            // 'type'=>$paymentType,
+            // 'Yrlevel'=>$Yrlevel,
+            // 'studentemail'=>$studentEmail,
+            // 'studentId'=>$studentID,
+            // 'contact'=>$contact,
 
         return view('admin.EditGrants', compact('id', 'lname', 'fname', 'Mname', 'program', 'type', 'Yrlevel', 'studentEmail', 'studentID', 'contact', 'status'));
+    }
+
+    public function EditGrants(Request $rq)
+    {
+        $id = $rq->id;
+        $lastname = $rq->lastName;
+        $firstName = $rq->firstName;
+        $middleName = $rq->middleName;
+        $program = $rq->program;
+        $paymentType = $rq->paymentType;
+        $Yrlevel = $rq->Yrlevel;
+        $studentEmail = $rq->studentEmail;
+        $studentID = $rq->studentID;
+        $contact = $rq->contact;
+        $status = $rq->status;
+
+
+        // dd(compact('id', 'lastname', 'firstName',  'middleName', 'program', 'paymentType', 'Yrlevel', 'studentEmail','studentID','contact','status'));
+        scholargrant::where('id', '=', $id)->update([
+            'Lname' => $lastname,
+            'fname' => $firstName,
+            'Mname' => $middleName,
+            'program' => $program,
+            'type' => $paymentType,
+            'Yrlevel' => $Yrlevel,
+            'studentemail' => $studentEmail,
+            'studentId' => $studentID,
+            'contact' => $contact,
+            'status' => $status,
+        ]);
+
+        return redirect()->route('admin.grantees');
     }
 }
 
