@@ -449,7 +449,9 @@
                         <th scope="row" class="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <img class="w-10 h-10 rounded-full" src="/images/sydney.jpg" alt="Jese image">
                             <div class="pl-3">
-                                <div class="text-base font-semibold">{{$lname[$x]}}, {{$fname[$x]}} {{$Mname[$x]}}</div>
+                                <div class="text-base font-semibold">
+                                    {{$lname[$x]}}, {{$fname[$x]}} {{$Mname[$x]}}
+                                </div>
                                 <div class="font-normal text-gray-500">
                                     {{$studentEmail[$x]}}
                                 </div>
@@ -475,10 +477,12 @@
                                 </button>
                                 {{--edit grantee--}}
                                 <form action="{{ route('admin.EditGrants') }}" method="POST">
+                                    @csrf
                                     <a href="EditGrant?id={{$id[$x]}}">
                                         <button>
                                             <span id="editBtn" onclick="editGrantee()" class="action-btns material-symbols-outlined">edit</span>
-                                        </button></a>
+                                        </button>
+                                    </a>
                                 </form>
                                 {{--delete grantee--}}
                                 <a href="deletegrant?id={{$id[$x]}}">
