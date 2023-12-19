@@ -45,7 +45,7 @@ Route::group(['prefix' => 'admin'], function () { // all routes here have /admin
             ->name('admin.grantees');
         Route::post('/admin/savesgrant', [AdminController::class, 'savesgrant'])
             ->name('admin.savesgrant');
-        Route::post('/EditGrants', [AdminController::class, 'EditGrants'])
+        Route::post('/admin/EditGrants', [AdminController::class, 'EditGrants'])
             ->name('admin.EditGrants');
         Route::get('/admin/EditGrant', [AdminController::class, 'EditGrant'])
             ->name('admin.EditGrant');
