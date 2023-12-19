@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Font1:style1,style2|Font2:style1,style2&display=swap">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.js">
     @include('partials.__header')
-    @include('partials.__sidebar')
+    @include('partials.__admin_sidebar')
     <title>CSP Full SSP Grantees</title>
     <style>
         body {
@@ -363,20 +363,20 @@
                         <label for="lastName" class="text-gray-500 font-semibold">
                             Last Name <span class="text-red-500">*</span>
                         </label>
-                        <input type="text" name="lastName" class="rounded-lg uppercase" value="{{$lname[0]}}">
-                        <input type="text" name="id" class="rounded-lg uppercase" value="{{$id[0]}}" hidden>
+                        <input type="text" name="lastName" class="rounded-lg uppercase" value="{{$lname}}">
+                        <input type="text" name="id" class="rounded-lg uppercase" value="{{$id}}" hidden>
                     </div>
                     <div class="flex flex-col">
                         <label for="firstName" class="text-gray-500 font-semibold">
                             First Name <span class="text-red-500">*</span>
                         </label>
-                        <input type="text" name="firstName" class="rounded-lg" value="{{$fname[0]}}">
+                        <input type="text" name="firstName" class="rounded-lg" value="{{$fname}}">
                     </div>
                     <div class="flex flex-col">
                         <label for="middleName" class="text-gray-500 font-semibold">
                             Middle Name <span class="text-red-500">*</span>
                         </label>
-                        <input type="text" name="middleName" class="rounded-lg" value="{{$Mname[0]}}">
+                        <input type="text" name="middleName" class="rounded-lg" value="{{$Mname}}">
                     </div>
                 </div>
                 <hr>
@@ -427,7 +427,7 @@
                     <div class="flex flex-col">
                         <label for="studentEmail" class="text-gray-500 font-semibold">Student Email <span class="text-red-500">*</span>
                         </label>
-                        <input type="email" name="studentEmail" class="rounded-lg" value="{{$studentEmail[0]}}">
+                        <input type="email" name="studentEmail" class="rounded-lg" value="{{$studentEmail}}">
                     </div>
                     <div class="flex flex-col">
                         <label for="paymentType" class="text-gray-500 font-semibold">Status <span class="text-red-500">*</span>
@@ -443,12 +443,12 @@
                     <div class="flex flex-col">
                         <label for="studentID" class="text-gray-500 font-semibold">Student ID <span class="text-red-500">*</span>
                         </label>
-                        <input type="text" name="studentID" class="rounded-lg" value="{{$studentID[0]}}">
+                        <input type="text" name="studentID" class="rounded-lg" value="{{$studentID}}">
                     </div>
                     <div class="flex flex-col">
                         <label for="contact" class="text-gray-500 font-semibold">Contact <span class="text-red-500">*</span>
                         </label>
-                        <input type="text" name="contact" class="rounded-lg" value="{{$contact[0]}}">
+                        <input type="text" name="contact" class="rounded-lg" value="{{$contact}}">
                     </div>
                 </div>
                 {{--buttons--}}
