@@ -37,17 +37,18 @@ Route::group(['prefix' => 'admin'], function () { // all routes here have /admin
         Route::get('/scholarships', [AdminController::class, 'Scholarship'])
             ->name('admin.scholarships');
         // showcreateScholarship
-        Route::post('/savescholar', [AdminController::class,'savescholar'])
+        Route::post('/savescholar', [AdminController::class, 'savescholar'])
             ->name('admin_savescholar_index');
-        Route::post('/delete', [AdminController::class,'delete'])
-        ->name('admin.delete');
-        Route::get('/admin/grantees', [AdminController::class,'Grantees'])
-        ->name('admin.grantees');
-        Route::post('/admin/savesgrant', [AdminController::class,'savesgrant'])
-        ->name('admin.savesgrant');
-        Route::post('/EditGrants', [AdminController::class,'EditGrant'])
-        ->name('admin.EditGrants');
-        Route::get('/EditGrants', [AdminController::class,'EditGrants'])->name('admin.EditGrants');
+        Route::post('/delete', [AdminController::class, 'delete'])
+            ->name('admin.delete');
+        Route::get('/admin/grantees', [AdminController::class, 'Grantees'])
+            ->name('admin.grantees');
+        Route::post('/admin/savesgrant', [AdminController::class, 'savesgrant'])
+            ->name('admin.savesgrant');
+        Route::post('/EditGrants', [AdminController::class, 'EditGrants'])
+            ->name('admin.EditGrants');
+        Route::get('/admin/EditGrant', [AdminController::class, 'EditGrant'])
+            ->name('admin.EditGrant');
 
 
         //-------------------------for functionality routing-------------------------
