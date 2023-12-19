@@ -476,14 +476,14 @@
                                     <span class="action-btns material-symbols-outlined">visibility</span>
                                 </button>
                                 {{--edit grantee--}}
-                                <form action="{{ route('admin.EditGrants') }}" method="POST">
+                               
                                     @csrf
                                     <a href="EditGrant?id={{$id[$x]}}">
-                                        <button>
-                                            <span id="editBtn" onclick="editGrantee()" class="action-btns material-symbols-outlined">edit</span>
+                                        <button type="submit">
+                                            <span id="editBtn" class="action-btns material-symbols-outlined">edit</span>
                                         </button>
                                     </a>
-                                </form>
+                          
                                 {{--delete grantee--}}
                                 <a href="deletegrant?id={{$id[$x]}}">
                                     <button>
