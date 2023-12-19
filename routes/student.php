@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\GoogleAuthController;
 
 // all student routes here
 Route::group(['prefix' => 'student'], function () { // all routes here have /student/ prefix
