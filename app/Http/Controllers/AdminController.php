@@ -442,35 +442,65 @@ class AdminController extends Controller
 
         return redirect()->route('admin.grantees');
     }
+    // public function EditGrant(Request $rq)
+    // {
+    //     $id = $rq->id;
+    //     dd($id);
+    //     $id = scholargrant::where('id', '=', $id)->pluck('id');
+    //     $lname = scholargrant::where('id', '=', $id)->pluck('Lname');
+    //     $fname = scholargrant::where('id', '=', $id)->pluck('Fname');
+    //     $Mname = scholargrant::where('id', '=', $id)->pluck('Mname');
+    //     $program = scholargrant::where('id', '=', $id)->pluck('program');
+    //     $type = scholargrant::where('id', '=', $id)->pluck('type');
+    //     $Yrlevel = scholargrant::where('id', '=', $id)->pluck('Yrlevel');
+    //     $studentEmail = scholargrant::where('id', '=', $id)->pluck('studentemail');
+    //     $studentID = scholargrant::where('id', '=', $id)->pluck('studentId');
+    //     $status = scholargrant::where('id', '=', $id)->pluck('status');
+    //     $contact = scholargrant::where('id', '=', $id)->pluck('contact');
+
+
+    //     // scholargrant::where('id', '=', $id)->update([
+    //     // 'Lname'=>$lastname,
+    //     // 'Fname'=>$firstName,
+    //     // 'Mname'=>$middleName,
+    //     // 'program'=>$program,
+    //     // 'type'=>$paymentType,
+    //     // 'Yrlevel'=>$Yrlevel,
+    //     // 'studentemail'=>$studentEmail,
+    //     // 'studentId'=>$studentID,
+    //     // 'contact'=>$contact,
+
+    //     return view('admin.EditGrants', compact('id', 'lname', 'fname', 'Mname', 'program', 'type', 'Yrlevel', 'studentEmail', 'studentID', 'contact', 'status'));
+    // }
     public function EditGrant(Request $rq)
     {
         $id = $rq->id;
-        $id = scholargrant::where('id', '=', $id)->pluck('id');
-        $lname = scholargrant::where('id', '=', $id)->pluck('Lname');
-        $fname = scholargrant::where('id', '=', $id)->pluck('Fname');
-        $Mname = scholargrant::where('id', '=', $id)->pluck('Mname');
-        $program = scholargrant::where('id', '=', $id)->pluck('program');
-        $type = scholargrant::where('id', '=', $id)->pluck('type');
-        $Yrlevel = scholargrant::where('id', '=', $id)->pluck('Yrlevel');
-        $studentEmail = scholargrant::where('id', '=', $id)->pluck('studentemail');
-        $studentID = scholargrant::where('id', '=', $id)->pluck('studentId');
-        $status = scholargrant::where('id', '=', $id)->pluck('status');
-        $contact = scholargrant::where('id', '=', $id)->pluck('contact');
 
+        // Find the scholargrant record by id
+        $scholargrant = scholargrant::find($id);
 
-        // scholargrant::where('id', '=', $id)->update([
-            // 'Lname'=>$lastname,
-            // 'Fname'=>$firstName,
-            // 'Mname'=>$middleName,
-            // 'program'=>$program,
-            // 'type'=>$paymentType,
-            // 'Yrlevel'=>$Yrlevel,
-            // 'studentemail'=>$studentEmail,
-            // 'studentId'=>$studentID,
-            // 'contact'=>$contact,
+        // Check if the record exists
+        if (!$scholargrant) {
+            abort(404); // Or handle the case where the record is not found
+        }
 
-        return view('admin.EditGrants', compact('id', 'lname', 'fname', 'Mname', 'program', 'type', 'Yrlevel', 'studentEmail', 'studentID', 'contact', 'status'));
+        // Retrieve the values of specific columns
+        $lname = $scholargrant->Lname;
+        $fname = $scholargrant->Fname;
+        $Mname = $scholargrant->Mname;
+        $program = $scholargrant->program;
+        $type = $scholargrant->type;
+        $Yrlevel = $scholargrant->Yrlevel;
+        $studentEmail = $scholargrant->StudentEmail;
+        $studentID = $scholargrant->StudentID;
+        $status = $scholargrant->status;
+        $contact = $scholargrant->contact;
+
+        // dd(compact('id', 'lname', 'fname', 'Mname', 'program', 'type', 'Yrlevel', 'studentEmail', 'studentID', 'contact', 'status'));
+        // Pass the retrieved data to the view for editing
+        return view('admin.scholarship.EditGrants', compact('id', 'lname', 'fname', 'Mname', 'program', 'type', 'Yrlevel', 'studentEmail', 'studentID', 'contact', 'status'));
     }
+
 
     public function EditGrants(Request $rq)
     {
