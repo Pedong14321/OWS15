@@ -50,7 +50,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="@include('partials.__admin_sidenav_class_attrib')">
+                <a href="{{ route('admin.scholarships') }}" class="@include('partials.__admin_sidenav_class_attrib')">
                     <span class="material-symbols-rounded">
                         school
                     </span>

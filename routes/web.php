@@ -29,7 +29,7 @@ Route::get('/test/1', function () {
         phpinfo();
     } else {
         return 'Imagick extension not installed.';
-    }   
+    }
 });
 
 // google sso route

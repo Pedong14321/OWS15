@@ -1,5 +1,13 @@
 <?php
 
+//google env
+GOOGLE_STUDENTCLIENT_ID = "589139654007-jk2kd7h483aqft4mcnnkaotpupcriujl.apps.googleusercontent.com"
+GOOGLE_STUDENTCLIENT_SECRET = "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"
+
+// install tailwind
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
 // error to logs
 try {
     // Your code here

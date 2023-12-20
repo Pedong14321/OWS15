@@ -10,6 +10,8 @@ use App\Models\Office;
 use App\Models\AdminType;
 use App\Models\Student;
 use App\Models\StudentEvent;
+use App\Models\Scholarship;
+use App\Models\scholargrant;
 use Intervention\Image\Facades\Image; // see notes below
 use Illuminate\Support\Facades\Log;
 use Illuminate\Session\TokenMismatchException;
@@ -84,104 +86,97 @@ class AdminController extends Controller
     {
         return view('admin.student_event.create');
     }
+
     //-------------------------functions for functionality-------------------------
 
     // storing signup step 1
     public function storeSignup1(Request $request)
     {
-        try {
-            $validated = $request->validate([
-                "admin_lname" => ['required', 'min:2', 'alpha_spaces'],
-                "admin_fname" => ['required', 'min:2', 'alpha_spaces'],
-                "admin_mi" => ['required', 'regex:/^(N\/A|[A-Za-z])$/'], //require to be clearer, user must put N/A if they have no mi
-                "admin_contact" => ['nullable', 'numeric', 'digits_between:10,15'],
-                "email" => ['required', 'email', Rule::unique('admins', 'email')],
-                'password' => [
-                    'required',
-                    'confirmed',
-                    'min:8',
-                    'regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])/',
-                ],
-            ]);
-            $validated['password'] = bcrypt($validated['password']); // incrypting the inputted password
-            $newAdmin = Admin::create($validated);
 
-            // Store 'admin_id' in the session
-            session()->put('admin_id', $newAdmin->admin_id);
+        $validated = $request->validate([
+            "admin_lname" => ['required', 'min:2', 'alpha_spaces'],
+            "admin_fname" => ['required', 'min:2', 'alpha_spaces'],
+            "admin_mi" => ['required', 'regex:/^(N\/A|[A-Za-z])$/'], //require to be clearer, user must put N/A if they have no mi
+            "admin_contact" => ['nullable', 'numeric', 'digits_between:10,15'],
+            "email" => ['required', 'email', Rule::unique('admins', 'email')],
+            'password' => [
+                'required',
+                'confirmed',
+                'min:8',
+                'regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])/',
+            ],
+        ]);
+        $validated['password'] = bcrypt($validated['password']); // incrypting the inputted password
+        $newAdmin = Admin::create($validated);
 
-            return redirect(route('admin_signup2'))
-                ->with('message', 'Successfully saved your info');
-        } catch (Exception $e) {
-            Log::error($e->getMessage());
-            back();
-        }
+        // Store 'admin_id' in the session
+        session()->put('admin_id', $newAdmin->admin_id);
+
+        return redirect(route('admin_signup2'))
+            ->with('message', 'Successfully saved your info');
     }
 
     // for signup step 2
     public function storeSignup2(Request $request)
     {
-        try {
-            $adminId = session('admin_id'); // Retrieve 'admin_id' from the session
 
-            $validated = $request->validate([
-                "employee_id" => ['required', 'max:6'],
+        $adminId = session('admin_id'); // Retrieve 'admin_id' from the session
+
+        $validated = $request->validate([
+            "employee_id" => ['required', 'max:6'],
+        ]);
+
+        $validated['admintype_id'] = 1; // assigning Super Admin type
+
+        $validated['office_id'] = 1; // assigning office to OSAS
+
+        $admin = Admin::find($adminId); // Find the admin by ID and update the attributes
+
+        if (!$admin) { // if admin is not found
+            return redirect()->back()->with('error', 'Admin not found');
+        }
+
+        // code for image upload
+        // checking if there is a file
+        if ($request->hasFile('admin_image')) {
+
+            $request->validate([ // validation for right format and size
+                "admin_image" => 'mimes:jpeg,png,bmp,tiff | max:4096'
             ]);
 
-            $validated['admintype_id'] = 1; // assigning Super Admin type
+            // to avoid duplication of image
+            $filenameWithExtension = $request->file("admin_image"); // gets the filename+extension
+            $filename = pathinfo($filenameWithExtension, PATHINFO_FILENAME); // extracts filename only without extension
 
-            $validated['office_id'] = 1; // assigning office to OSAS
+            $extension = $request->file("admin_image") // gets the extension of the file 
+                ->getClientOriginalExtension();
 
-            $admin = Admin::find($adminId); // Find the admin by ID and update the attributes
+            $filenameToStore = $filename . '_' . time() . '.' . $extension; // filename_timestamp.extention
 
-            if (!$admin) { // if admin is not found
-                return redirect()->back()->with('error', 'Admin not found');
-            }
+            $smallThumbnail = 'small_' . $filename . '_' . time() . '.' . $extension; // small_filename_timestamp.extention
 
-            // code for image upload
-            // checking if there is a file
-            if ($request->hasFile('admin_image')) {
+            $request->file('admin_image')->storeAs( // stores the image to ...
+                'public/admin',
+                $filenameToStore
+            );
 
-                $request->validate([ // validation for right format and size
-                    "admin_image" => 'mimes:jpeg,png,bmp,tiff | max:4096'
-                ]);
+            $request->file('admin_image')->storeAs( // stores the small image to ...
+                'public/admin/thumbnail',
+                $smallThumbnail
+            );
 
-                // to avoid duplication of image
-                $filenameWithExtension = $request->file("admin_image"); // gets the filename+extension
-                $filename = pathinfo($filenameWithExtension, PATHINFO_FILENAME); // extracts filename only without extension
+            $thumbnail = 'storage/admin/thumbnail/' . $smallThumbnail; // assigns the path to the thumbnail image to this variable
+            // example content of $thumbnail is /storage/admin/thumbnail/small_my-image_1670915990.png
 
-                $extension = $request->file("admin_image") // gets the extension of the file 
-                    ->getClientOriginalExtension();
+            // dd($thumbnail); // <- for debugging only
+            $this->createThumbnail($thumbnail, 150, 150);
 
-                $filenameToStore = $filename . '_' . time() . '.' . $extension; // filename_timestamp.extention
-
-                $smallThumbnail = 'small_' . $filename . '_' . time() . '.' . $extension; // small_filename_timestamp.extention
-
-                $request->file('admin_image')->storeAs( // stores the image to ...
-                    'public/admin',
-                    $filenameToStore
-                );
-
-                $request->file('admin_image')->storeAs( // stores the small image to ...
-                    'public/admin/thumbnail',
-                    $smallThumbnail
-                );
-
-                $thumbnail = 'storage/admin/thumbnail/' . $smallThumbnail; // assigns the path to the thumbnail image to this variable
-                // example content of $thumbnail is /storage/admin/thumbnail/small_my-image_1670915990.png
-
-                // dd($thumbnail); // <- for debugging only
-                $this->createThumbnail($thumbnail, 150, 150);
-
-                $validated['admin_image'] = $filenameToStore; // stores the new filename to db
-            }
-
-            $admin->update($validated); // updating the data of that admin
-
-            return redirect(route('admin_login'))->with('message', 'Successfully created Super Admin account');
-        } catch (Exception $e) {
-            Log::error($e->getMessage());
-            back();
+            $validated['admin_image'] = $filenameToStore; // stores the new filename to db
         }
+
+        $admin->update($validated); // updating the data of that admin
+
+        return redirect(route('admin_login'))->with('message', 'Successfully created Super Admin account');
     }
 
     // for creating new admin
@@ -303,7 +298,7 @@ class AdminController extends Controller
         return view('admin.student_event.qr-result', compact('student'));
     }
 
-    // creating new event
+    // storing new event
     public function storeEvent(Request $request)
     {
         try {
@@ -318,11 +313,225 @@ class AdminController extends Controller
             StudentEvent::create($validated);
 
             return redirect(route('admin_stud_events'))->with('message', 'New Event Created!');
-
         } catch (Exception $e) {
             Log::error($e->getMessage());
             back();
         }
+    }
+
+    public function scholarship(Request $rq)
+    {
+        $cnter = scholarship::query()->count();
+        $id = scholarship::query()->pluck('id');
+        $name = scholarship::query()->pluck('name');
+        $email = scholarship::query()->pluck('email');
+        $contact =  scholarship::query()->pluck('contact');
+        $desc = scholarship::query()->pluck('desc');
+        $process = scholarship::query()->pluck('process');
+        $sid = scholarship::query()->pluck('scholarshipid');
+
+        return view('admin.scholarship.index', compact('cnter', 'id', 'name', 'email', 'contact', 'desc', 'process', 'sid'));
+    }
+
+    public function savescholar(Request $rq)
+    {
+        $name = $rq->scholarshipName;
+        $type = $rq->type;
+        $desc = $rq->scholarshipDescription;
+        $process = $rq->scholarshipApplicationProcess;
+        $email = $rq->scholarshipEmail;
+        $contact = $rq->contact;
+
+        // dd($contact);
+
+        $n = 8;
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+
+        for ($i = 0; $i < $n; $i++) {
+            $index = rand(0, strlen($characters) - 1);
+            $randomString .= $characters[$index];
+        }
+
+
+        $scholarid =  date("Y") . "-" . $randomString;
+
+
+        scholarship::create([
+            'name' => $name,
+            'email' => $email,
+            'type' => $type,
+            'desc' => $desc,
+            'process' => $process,
+            'contact' => $contact,
+            'scholarshipid' => $scholarid,
+        ]);
+
+        return redirect()->route('admin.scholarships');
+        //    return view('admin.scholarship.index');
+    }
+    public function delete(Request $rq)
+    {
+        $id = $rq->schoid;
+        Scholarship::where('scholarshipid', '=', $id)->delete();
+
+        return redirect()->route('admin.scholarships');
+    }
+
+    public function Grantees(request $rq)
+    {
+        $cnter = scholargrant::query()->count();
+        $id = scholargrant::query()->pluck('id');
+        $lname = scholargrant::query()->pluck('Lname');
+        $fname = scholargrant::query()->pluck('Fname');
+        $Mname = scholargrant::query()->pluck('Mname');
+        $program = scholargrant::query()->pluck('program');
+        $type = scholargrant::query()->pluck('type');
+        $Yrlevel = scholargrant::query()->pluck('Yrlevel');
+        $studentEmail = scholargrant::query()->pluck('studentemail');
+        $studentID = scholargrant::query()->pluck('studentId');
+        $contact = scholargrant::query()->pluck('contact');
+        $status = scholargrant::query()->pluck('status');
+
+
+        //     scholargrant::create([
+        //         'Last_name'=>$lastname,
+        //         'First_name'=>$firstName,
+        //         'Middle_name'=>$middleName,
+        //         'Program'=>$program,
+        //         'type'=>$paymentType,
+        //         'Year_Level'=>$Yrlevel,
+        //         'Student_email'=>$studentEmail,
+        //         'Student_id'=>$studentID,
+        //         'Contact'=>$contact,
+        //    ]);
+
+
+        return view('admin.scholarship.grantees', compact('id', 'cnter', 'lname', 'fname', 'Mname', 'program', 'type', 'Yrlevel', 'studentEmail', 'studentID', 'contact', 'status'));
+    }
+
+    public function savesgrant(Request $rq)
+    {
+        $lastname = $rq->lastName;
+        $firstName = $rq->firstName;
+        $middleName = $rq->middleName;
+        $program = $rq->program;
+        $paymentType = $rq->paymentType;
+        $Yrlevel = $rq->Yrlevel;
+        $studentEmail = $rq->studentEmail;
+        $studentID = $rq->studentID;
+        $status = $rq->status;
+        $contact = $rq->contact;
+
+
+
+        scholargrant::create([
+            'Lname' => $lastname,
+            'Fname' => $firstName,
+            'Mname' => $middleName,
+            'program' => $program,
+            'type' => $paymentType,
+            'Yrlevel' => $Yrlevel,
+            'studentemail' => $studentEmail,
+            'studentId' => $studentID,
+            'contact' => $contact,
+            'status' => $status,
+
+
+        ]);
+
+        return redirect()->route('admin.grantees');
+    }
+    // public function EditGrant(Request $rq)
+    // {
+    //     $id = $rq->id;
+    //     dd($id);
+    //     $id = scholargrant::where('id', '=', $id)->pluck('id');
+    //     $lname = scholargrant::where('id', '=', $id)->pluck('Lname');
+    //     $fname = scholargrant::where('id', '=', $id)->pluck('Fname');
+    //     $Mname = scholargrant::where('id', '=', $id)->pluck('Mname');
+    //     $program = scholargrant::where('id', '=', $id)->pluck('program');
+    //     $type = scholargrant::where('id', '=', $id)->pluck('type');
+    //     $Yrlevel = scholargrant::where('id', '=', $id)->pluck('Yrlevel');
+    //     $studentEmail = scholargrant::where('id', '=', $id)->pluck('studentemail');
+    //     $studentID = scholargrant::where('id', '=', $id)->pluck('studentId');
+    //     $status = scholargrant::where('id', '=', $id)->pluck('status');
+    //     $contact = scholargrant::where('id', '=', $id)->pluck('contact');
+
+
+    //     // scholargrant::where('id', '=', $id)->update([
+    //     // 'Lname'=>$lastname,
+    //     // 'Fname'=>$firstName,
+    //     // 'Mname'=>$middleName,
+    //     // 'program'=>$program,
+    //     // 'type'=>$paymentType,
+    //     // 'Yrlevel'=>$Yrlevel,
+    //     // 'studentemail'=>$studentEmail,
+    //     // 'studentId'=>$studentID,
+    //     // 'contact'=>$contact,
+
+    //     return view('admin.EditGrants', compact('id', 'lname', 'fname', 'Mname', 'program', 'type', 'Yrlevel', 'studentEmail', 'studentID', 'contact', 'status'));
+    // }
+    public function EditGrant(Request $rq)
+    {
+        $id = $rq->id;
+
+        // Find the scholargrant record by id
+        $scholargrant = scholargrant::find($id);
+
+        // Check if the record exists
+        if (!$scholargrant) {
+            abort(404); // Or handle the case where the record is not found
+        }
+
+        // Retrieve the values of specific columns
+        $lname = $scholargrant->Lname;
+        $fname = $scholargrant->Fname;
+        $Mname = $scholargrant->Mname;
+        $program = $scholargrant->program;
+        $type = $scholargrant->type;
+        $Yrlevel = $scholargrant->Yrlevel;
+        $studentEmail = $scholargrant->StudentEmail;
+        $studentID = $scholargrant->StudentID;
+        $status = $scholargrant->status;
+        $contact = $scholargrant->contact;
+
+        // dd(compact('id', 'lname', 'fname', 'Mname', 'program', 'type', 'Yrlevel', 'studentEmail', 'studentID', 'contact', 'status'));
+        // Pass the retrieved data to the view for editing
+        return view('admin.scholarship.EditGrants', compact('id', 'lname', 'fname', 'Mname', 'program', 'type', 'Yrlevel', 'studentEmail', 'studentID', 'contact', 'status'));
+    }
+
+
+    public function EditGrants(Request $rq)
+    {
+        $id = $rq->id;
+        $lastname = $rq->lastName;
+        $firstName = $rq->firstName;
+        $middleName = $rq->middleName;
+        $program = $rq->program;
+        $paymentType = $rq->paymentType;
+        $Yrlevel = $rq->Yrlevel;
+        $studentEmail = $rq->studentEmail;
+        $studentID = $rq->studentID;
+        $contact = $rq->contact;
+        $status = $rq->status;
+
+
+        // dd(compact('id', 'lastname', 'firstName',  'middleName', 'program', 'paymentType', 'Yrlevel', 'studentEmail','studentID','contact','status'));
+        scholargrant::where('id', '=', $id)->update([
+            'Lname' => $lastname,
+            'fname' => $firstName,
+            'Mname' => $middleName,
+            'program' => $program,
+            'type' => $paymentType,
+            'Yrlevel' => $Yrlevel,
+            'studentemail' => $studentEmail,
+            'studentId' => $studentID,
+            'contact' => $contact,
+            'status' => $status,
+        ]);
+
+        return redirect()->route('admin.grantees');
     }
 }
 

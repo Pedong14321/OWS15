@@ -33,6 +33,23 @@ Route::group(['prefix' => 'admin'], function () { // all routes here have /admin
         // showCreateEvents
         Route::get('/events/create', [AdminController::class, 'showCreateEvents'])
             ->name('admin_create_event');
+        // scholarship
+        Route::get('/scholarships', [AdminController::class, 'Scholarship'])
+            ->name('admin.scholarships');
+        // showcreateScholarship
+        Route::post('/savescholar', [AdminController::class, 'savescholar'])
+            ->name('admin_savescholar_index');
+        Route::post('/delete', [AdminController::class, 'delete'])
+            ->name('admin.delete');
+        Route::get('/admin/grantees', [AdminController::class, 'Grantees'])
+            ->name('admin.grantees');
+        Route::post('/admin/savesgrant', [AdminController::class, 'savesgrant'])
+            ->name('admin.savesgrant');
+        Route::post('/admin/EditGrants', [AdminController::class, 'EditGrants'])
+            ->name('admin.EditGrants');
+        Route::get('/admin/EditGrant', [AdminController::class, 'EditGrant'])
+            ->name('admin.EditGrant');
+
 
         //-------------------------for functionality routing-------------------------
         // creating new admin
@@ -48,6 +65,7 @@ Route::group(['prefix' => 'admin'], function () { // all routes here have /admin
         Route::post('/event/store', [AdminController::class, 'storeEvent'])
             ->name('admin_store_event');
     }); //end of auth:admin middleware
+
 
     //-------------------------for views routing-------------------------
     // signup first step
