@@ -3,7 +3,7 @@
 @include('partials.__admin_sidebar')
 
 {{-- right side of sidebar --}}
-<div class=" md:ml-64 pb-4">
+<div class=" md:ml-60 pb-4">
 
     {{-- reusable page header --}}
     @include('partials.__admin_pageheader')
@@ -35,7 +35,6 @@
                             </p>
                         </div>
                     </li>
-
                 </ol>
             </nav>
             <div class="flex">
@@ -55,15 +54,11 @@
         {{-- main content --}}
         <div class="flex flex-row mt-2 mb-4 gap-4">
 
-            {{-- left --}}
-            <div class="w-1/3 hidden min-h-full md:flex items-center justify-center rounded-lg bg-gray-50 ">
-                <img src="{{ asset('images/amin/cre.png') }}" class="h-max" />
-            </div>
-
             {{-- right - create new admin form --}}
             <div
-                class="md:w-2/3 w-full px-6 py-6 lg:px-8 relative bg-white rounded-lg overflow-y-auto border border-yellow-500 ">
-                <form action=" {{ route('admin_store_event') }} " method="POST" class=" flex flex-col m-0" enctype="multipart/form-data">
+                class=" w-full px-6 py-6 lg:px-8 relative bg-white rounded-lg overflow-y-auto border border-yellow-500 ">
+                <form action=" {{ route('admin_store_event') }} " method="POST" class=" flex flex-col m-0"
+                    enctype="multipart/form-data">
                     @csrf
                     <h2 class="text-center text-lg font-bold leading-none tracking-tight text-slate-800 md:text-xl ">
                         Create New Event
@@ -82,7 +77,7 @@
                                 <span class="text-red-500">*</span>
                             </label>
                             <input type="text" name="event_name" id="event_name" required
-                                class="mt-1 h-10 px-4 py-2 w-full border-b border-gray-300 focus:outline-none focus:border-yellow-400"
+                                class="mt-1 h-10 px-4 py-2 w-full border-b border-gray-300 rounded-full focus:outline-none focus:border-yellow-400"
                                 value="{{ old('event_name') }}">
                             @include('partials.__input_error', ['fieldName' => 'event_name'])
                         </div>
@@ -94,7 +89,7 @@
                                 <span class="text-red-500">*</span>
                             </label>
                             <input type="date" name="event_date" id="event_date" required
-                                class="mt-1 h-10 px-4 py-2 w-full border-b border-gray-300 focus:outline-none focus:border-yellow-400"
+                                class="mt-1 h-10 px-4 py-2 w-full border-b border-gray-300 rounded-full focus:outline-none focus:border-yellow-400"
                                 value="{{ old('event_date') }}">
                             @include('partials.__input_error', ['fieldName' => 'event_date'])
                         </div>
@@ -106,7 +101,7 @@
                                 <span class="text-red-500">*</span>
                             </label>
                             <input type="time" name="event_time_in" id="event_time_in" required
-                                class="mt-1 h-10 px-4 py-2 w-full border-b border-gray-300 focus:outline-none focus:border-yellow-400"
+                                class="mt-1 h-10 px-4 py-2 w-full border-b border-gray-300 rounded-full rounded-full focus:outline-none focus:border-yellow-400"
                                 value="{{ old('event_time_in') }}">
                             @include('partials.__input_error', ['fieldName' => 'event_time_in'])
                         </div>
@@ -118,7 +113,7 @@
                                 <span class="text-red-500">*</span>
                             </label>
                             <input type="time" name="event_time_out" id="event_time_out" required
-                                class="mt-1 h-10 px-4 py-2 w-full border-b border-gray-300 focus:outline-none focus:border-yellow-400"
+                                class="mt-1 h-10 px-4 py-2 w-full border-b border-gray-300 rounded-full focus:outline-none focus:border-yellow-400"
                                 value="{{ old('event_time_out') }}">
                             @include('partials.__input_error', ['fieldName' => 'event_time_out'])
                         </div>
@@ -132,10 +127,9 @@
                             <span class="text-red-500">*</span>
                         </label>
                         <textarea name="event_desc" id="event_desc" required rows="2"
-                            class="mt-1 px-4 py-2 w-full border-b border-gray-300 resize-col focus:outline-none focus:border-yellow-400">{{ old('event_desc') }}</textarea>
+                            class="mt-1 px-4 py-2 w-full border-b border-gray-300 resize-col rounded-lg focus:outline-none focus:border-yellow-400">{{ old('event_desc') }}</textarea>
                         @include('partials.__input_error', ['fieldName' => 'event_desc'])
                     </div>
-
 
                     {{-- submit button --}}
                     <div class="mt-6">
@@ -146,13 +140,22 @@
                     </div>
                 </form>
             </div>
-
         </div>
-
-
     </div>
-
 </div>
+
+<script>
+    function validateDate() {
+        var inputDate = document.getElementById('event_date').value;
+        var currentDate = new Date().toISOString().split('T')[0]; // Get current date in 'YYYY-MM-DD' format
+
+        if (inputDate > currentDate) {
+            document.getElementById('inputDate').value = currentDate;
+            alert('Please select a date not later than today.');
+        }
+    }
+
+</script>
 
 
 @include('partials.__footer')

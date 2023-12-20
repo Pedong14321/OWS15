@@ -70,7 +70,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Singapore',
+    //default     'timezone' => 'UTC',
 
     /*
     |--------------------------------------------------------------------------

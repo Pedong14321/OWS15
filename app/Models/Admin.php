@@ -5,9 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Database\Factories\AdminFactory;
+
 
 class Admin extends Authenticatable // extending authenticable makes it process authentication like login, see config>auth.php
 {
+    protected static function newFactory()
+    {
+        return AdminFactory::new();
+    }
+
     use HasFactory; //  adds the ability to generate timestamps for the model.
 
     protected $table = 'admins'; // specifies the name of the database table that the model maps to
@@ -28,7 +35,6 @@ class Admin extends Authenticatable // extending authenticable makes it process 
         'office_id',
         'position_id',
         'password',
-        'google_id',
     ];
 
     protected $hidden = [ // hidden from the model's JSON representation
@@ -41,12 +47,14 @@ class Admin extends Authenticatable // extending authenticable makes it process 
         'password' => 'hashed',
     ];
 
-    
-    public function adminType() { // define relationships between the Admin
+
+    public function adminType()
+    { // define relationships between the Admin
         return $this->belongsTo(AdminType::class, 'admintype_id');
     }
 
-    public function office() { // define relationships between the Admin
+    public function office()
+    { // define relationships between the Admin
         return $this->belongsTo(Office::class, 'office_id');
     }
 }

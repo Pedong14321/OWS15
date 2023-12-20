@@ -84,6 +84,7 @@ class StudentController extends Controller
             if ($student) {
                 $student->update($validated); // Update the data of that student
                 // Additional logic if needed
+                Auth::guard('student')->login($student); // logging student with 'student' guard
                 return redirect(route('student_dashboard'))->with('message', 'Successfully save student info!');
             } else {
                 return response()->json(['error' => 'Student not found'], 404);

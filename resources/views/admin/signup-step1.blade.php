@@ -7,7 +7,7 @@
     <div class="bg-white rounded-lg md:w-1/2 sm:w-full min-h-full m-5 md:mr-0 shadow-lg ">
         <div class="usep_background m-3 p-3 md:p-8 rounded-lg flex flex-col relative" style=" height:96%;">
             <div class="mb-6">
-                <h1 class="text-3xl font-bold text-white">Welcome OSAS System Admin</h1>
+                <h1 class="text-3xl font-bold text-white">Welcome OSAS System Super Admin</h1>
                 <p class="mt-4 text-white">To get started, please provide the following information to create your admin
                     account.</p>
             </div>
@@ -38,7 +38,7 @@
         <form action="{{ route('admin_signup1store') }}" method="POST" class=" flex flex-col m-0">
             @csrf
             <div class="flex justify-between items-center font-bold">
-                <h1 class="text-2xl  text-gray-800">Create Admin Account</h1>
+                <h1 class="text-2xl  text-gray-800">Create Super Admin account</h1>
                 <h3 class="text-gray-700">Step 1</h3>
             </div>
             <div class="flex mt-4 gap-4">
@@ -141,7 +141,7 @@
             <div class="mt-6">
                 <input type="submit"
                     class="block w-full h-10 hover:bg-red-900 text-white font-medium py-2 rounded-full text-center transition duration-300 ourmaroonbg"
-                    value="Create Admin Account">
+                    value="Create Super Admin account">
             </div>
         </form>
 

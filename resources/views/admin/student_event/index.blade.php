@@ -10,7 +10,7 @@
     @include('partials.__admin_pageheader')
 
     {{-- main content --}}
-    <div class="p-4 m-4 shadow-lg bg-white border-gray-200 rounded-lg " style="min-height: 90vh">
+    <div class="md:p-4 p-2 md:mx-4 mx-2 shadow-lg bg-white border-gray-200 rounded-lg " style="min-height: 90vh">
         {{-- navigation container --}}
         <div class="justify-between flex items-center  mb-4 rounded  ">
             {{-- breadcrumb nav container --}}
@@ -19,14 +19,12 @@
                     <li class="inline-flex items-center">
                         <a href="{{ route('admin_dashboard') }}"
                             class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-red-600 ">
-                            <span class="px-1 material-symbols-rounded" style="font-size:20px">how_to_reg</span>
+                            <span class="px-1 material-symbols-rounded" style="font-size:20px">local_activity</span>
                             Student Events
                         </a>
                     </li>
-
                 </ol>
             </nav>
-
         </div>
 
         {{-- title + button container --}}
@@ -63,28 +61,58 @@
         <div class=" mb-4 rounded ">
 
             @foreach ($student_events as $event)
-                <a href="your_link_here"
-                    class=" relative flex justify-start border-box truncate h-20 w-full mb-2 p-2 px-4 bg-white border border-gray-300 rounded-lg hover:shadow-lg shadow-sm">
-                    <div class="mr-4 w-20 text-gray-400 h-full items-center flex flex-row  whitespace-normal">
-                        <h4 class="h-full items-center flex  text-4xl ">3</h4>
+                <div
+                    class="bg--100 relative flex justify-start border-box truncate w-full mb-2 p-2 bg-white border border-gray-300 rounded-lg hover:shadow-lg shadow-sm">
+                    {{-- first column --}}
+                    <div class="hidden md:flex bg--100 w-30 text-gray-400 min-h-full items-center    whitespace-normal">
+                        <h4 class="h-full items-center flex text-5xl text-yellow-400 ">
+                            {{ $event->days_left }} </h4>
                         <h4 class="font-wrap text-sm leading-3">days to go</h4>
                     </div>
-
-                    <div class="w-full flex items-center ">
-                        <h4 class="text-lg font-bold text-gray-700">{{ $event->event_name }}</h4>
+                    {{-- second column --}}
+                    <div class="w-full bg--100 md:items-center flex flex-col mr-2 truncate">
+                        <div class=" h-full items-center flex">
+                            <a href=" {{ route('admin_event_details', ['event_id' => $event->event_id]) }}">
+                                <h4 class="text-md text-gray-700 truncate">{{ $event->event_name }}</h4>
+                            </a>
+                        </div>
+                        <div class="flex overflow-x-auto h-full gap-1 mt-2">
+                            <p
+                                class="text-xs text-gray-700 bg-yellow-300 w-fit rounded-full px-2 py-1 flex items-center gap-1">
+                                <span class="material-symbols-rounded" style="font-size: 15px">
+                                    event
+                                </span>
+                                {{ $event->event_date }}
+                            </p>
+                            <p
+                                class="text-xs text-gray-700 bg-gray-100 w-fit rounded-full px-2 py-1 flex items-center gap-1">
+                                in
+                                {{ \Carbon\Carbon::parse($event->event_time_in)->format('g:iA') }}-{{ \Carbon\Carbon::parse($event->event_time_in)->addHours(1)->format('g:iA') }}
+                            </p>
+                            <p
+                                class="text-xs text-gray-700 bg-gray-100 w-fit rounded-full px-2 py-1 flex items-center gap-1">
+                                out
+                                {{ \Carbon\Carbon::parse($event->event_time_out)->format('g:iA') }}-{{ \Carbon\Carbon::parse($event->event_time_out)->addHours(1)->format('g:iA') }}
+                            </p>
+                        </div>
                     </div>
-
-                    <div class="absolute px-2 bg-white right-0 top-1/2  transform  -translate-y-1/2">
-                        <form action="">
+                    {{-- third column --}}
+                    <div class="flex bg--100 gap-2 items-center">
+                        {{-- qr button --}}
+                        <a href=" {{ route('admin_event_scanner', ['event_id' => $event->event_id]) }}"
+                            class="w-full py-2 bg-green-300 flex items-center justify-center rounded-md">
                             <button type="submit"
-                                class="h-12 w-12 flex items-center justify-center bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm p-2">
-                                <span class="material-symbols-rounded">
+                                class="h-6 md:w-32 flex gap-1 items-center justify-center font-medium rounded-full p-2 ">
+                                <span class="material-symbols-rounded" style="font-size: 20px">
                                     qr_code_scanner
                                 </span>
+                                <p class="text-sm text-gray-700 hidden md:block">
+                                    Scan
+                                </p>
                             </button>
-                        </form>
+                        </a>
                     </div>
-                </a>
+                </div>
             @endforeach
         </div>
     </div>

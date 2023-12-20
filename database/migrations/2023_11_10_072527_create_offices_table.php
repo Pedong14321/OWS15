@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id('office_id');
             $table->string('office_name', 50);
             $table->string('office_desc', 100);
+            $table->boolean('archived')->default(false);
             $table->timestamps();
         });
 
